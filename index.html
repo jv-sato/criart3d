@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO & Metatags -->
+  <title>Criart 3D - Impressão 3D e Comunicação Visual</title>
+  <meta name="description" content="Plataforma oficial da Criart 3D em Governador Valadares - MG. Impressão 3D, prototipagem, corte a laser, comunicação visual e orçamentos via WhatsApp." />
+  <meta property="og:title" content="Criart 3D - Impressão 3D e Comunicação Visual" />
+  <meta property="og:description" content="Plataforma oficial da Criart 3D em Governador Valadares - MG. Impressão 3D, prototipagem, corte a laser, comunicação visual e orçamentos via WhatsApp." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Tipografia do Google Fonts & Ícones Material Symbols -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&fa mily=Sora:wght@600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CDN para compatibilidade direta no GitHub Pages sem dependência de build -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#006491",
+            "primary-container": "#009fe3",
+            "on-primary": "#ffffff",
+            "on-primary-container": "#00324b",
+            "primary-fixed": "#c9e6ff",
+            "primary-fixed-dim": "#8aceff",
+            "on-primary-fixed": "#001e2f",
+            "on-primary-fixed-variant": "#004b6f",
+            "secondary": "#535f75",
+            "secondary-container": "#d3e0fa",
+            "on-secondary": "#ffffff",
+            "on-secondary-container": "#576379",
+            "secondary-fixed": "#d6e3fd",
+            "secondary-fixed-dim": "#bac7e1",
+            "on-secondary-fixed": "#0f1c2f",
+            "on-secondary-fixed-variant": "#3b475c",
+            "tertiary": "#006d2f",
+            "tertiary-container": "#00ad4f",
+            "on-tertiary": "#ffffff",
+            "on-tertiary-container": "#003714",
+            "tertiary-fixed": "#66ff8e",
+            "tertiary-fixed-dim": "#3de273",
+            "on-tertiary-fixed": "#002109",
+            "on-tertiary-fixed-variant": "#005322",
+            "background": "#f9f9ff",
+            "on-background": "#121c2a",
+            "surface": "#f9f9ff",
+            "surface-dim": "#d0daef",
+            "surface-bright": "#f9f9ff",
+            "surface-variant": "#d9e3f7",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f0f3ff",
+            "surface-container": "#e7eeff",
+            "surface-container-high": "#dfe8fd",
+            "surface-container-highest": "#d9e3f7",
+            "on-surface": "#121c2a",
+            "on-surface-variant": "#3e4850",
+            "inverse-surface": "#273140",
+            "inverse-on-surface": "#ebf1ff",
+            "inverse-primary": "#8aceff",
+            "outline": "#6e7881",
+            "outline-variant": "#bec8d2",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "gutter-mobile": "1rem"
+          },
+          fontFamily: {
+            display: ["Sora", "sans-serif"],
+            headline: ["Sora", "sans-serif"],
+            body: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Folha de Estilo Separada com Animações Sutis (CSS Puro) -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+
+  <!-- ========================================================
+       TOAST DE NOTIFICAÇÃO (Interatividade via JS)
+       ======================================================== -->
+  <div id="toastNotification" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-3 bg-inverse-surface text-inverse-on-surface rounded-xl shadow-2xl transition-all duration-300">
+    <span class="material-symbols-outlined text-tertiary-container text-xl">send</span>
+    <span id="toastMessage" class="font-body-sm text-sm font-medium">Redirecionando para o WhatsApp da Criart 3D...</span>
+  </div>
+
+  <!-- ========================================================
+       CABEÇALHO FIXO COM TRANSIÇÃO SUAVE
+       ======================================================== -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface/95 backdrop-blur-xl transition-all duration-300 shadow-[0_1px_8px_rgba(18,28,42,0.06)]">
+    <!-- Barra Superior de Contato e Localização -->
+    <div class="bg-surface-container-high/60 hidden md:block">
+      <div class="w-full px-gutter flex items-center justify-between h-9 text-on-surface-variant font-label-sm text-label-sm">
+        <div class="flex items-center gap-space-lg">
+          <span class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[15px] text-primary">pin_drop</span>
+            Governador Valadares - MG
+          </span>
+          <span class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[15px] text-primary">call</span>
+            (33) 9 9144-9728
+          </span>
+          <span class="flex items-center gap-space-xs">
+            <span class="material-symbols-outlined text-[15px] text-primary">alternate_email</span>
+            @criart3d
+          </span>
+        </div>
+        <div class="flex items-center gap-space-md">
+          <span class="inline-flex items-center gap-1.5 text-tertiary font-bold">
+            <span class="w-2 h-2 rounded-full bg-tertiary-container animate-ping-soft"></span>
+            Atendimento Rápido
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Barra Principal de Navegação -->
+    <div class="h-20 w-full px-gutter flex items-center justify-between">
+      <!-- Logotipo da Criart 3D -->
+      <a href="#" class="flex items-center gap-space-sm group text-left">
+        <img src="assets/logo.png" style="height: 100%; width: 48px;">
+        <div>
+          <div class="flex items-baseline gap-1">
+            <img src="assets/logotipo.jpeg" style="height: 100%; width: 240px;">
+          </div>
+        </div>
+      </a>
+
+      <!-- Menu de Links no Desktop -->
+      <nav class="hidden xl:flex items-center gap-space-lg">
+        <a href="#catalogo" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Impressão 3D</a>
+        <a href="#catalogo" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Comunicação Visual</a>
+        <a href="#catalogo" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Manutenção &amp; Treinamento</a>
+        <a href="#vitrine" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Portfólio</a>
+        <a href="#diferenciais" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Diferenciais</a>
+        <a href="#avaliacoes" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Avaliações</a>
+        <a href="#faq" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">FAQ</a>
+      </nav>
+
+      <!-- Ações do Cabeçalho -->
+      <div class="flex items-center gap-space-md">
+        <a href="https://wa.me/5533991449728" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-space-xs px-space-md py-space-sm rounded-lg bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-md text-label-md btn-subtle shadow-[0_4px_16px_rgba(0,173,79,0.35)]">
+          <span class="material-symbols-outlined text-[18px]">chat</span>
+          <span>Fazer Orçamento</span>
+        </a>
+
+        <!-- Botão Menu Mobile Hamburguer -->
+        <button id="mobileMenuBtn" aria-label="Abrir Menu Principal" class="xl:hidden p-space-xs text-on-surface-variant hover:text-on-surface rounded-lg btn-subtle">
+          <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MENU MOBILE DRAWER (Controlado pelo JavaScript)
+       ======================================================== -->
+  <div id="mobileMenuBackdrop" class="fixed inset-0 bg-inverse-surface/60 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <aside id="mobileMenuDrawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-surface-container-lowest z-50 shadow-2xl translate-x-full transition-transform duration-300 flex flex-col justify-between p-6">
+    <div class="flex flex-col gap-6">
+      <div class="flex items-center justify-between pb-4 border-b border-surface-container">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold">
+            <span class="material-symbols-outlined text-xl">view_in_ar</span>
+          </div>
+          <span class="font-headline-sm font-bold text-on-surface">CRIART 3D</span>
+        </div>
+        <button id="closeMobileMenuBtn" aria-label="Fechar Menu" class="p-2 text-on-surface-variant hover:text-on-surface rounded-lg btn-subtle">
+          <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-4">
+        <a href="#catalogo" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 border-b border-surface-container-low flex items-center justify-between transition-colors">
+          <span>Catálogo de Soluções</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+        <a href="#orcamento" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 border-b border-surface-container-low flex items-center justify-between transition-colors">
+          <span>Simulador de Orçamento</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+        <a href="#vitrine" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 border-b border-surface-container-low flex items-center justify-between transition-colors">
+          <span>Vitrine &amp; Portfólio</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+        <a href="#diferenciais" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 border-b border-surface-container-low flex items-center justify-between transition-colors">
+          <span>Diferenciais</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+        <a href="#avaliacoes" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 border-b border-surface-container-low flex items-center justify-between transition-colors">
+          <span>Depoimentos</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+        <a href="#faq" class="mobile-nav-link text-on-surface-variant hover:text-primary font-label-md py-2 flex items-center justify-between transition-colors">
+          <span>Perguntas Frequentes</span>
+          <span class="material-symbols-outlined text-sm">chevron_right</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="pt-6 border-t border-surface-container flex flex-col gap-3">
+      <a href="https://wa.me/5533991449728" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-md font-bold text-center flex items-center justify-center gap-2 btn-subtle shadow-lg animate-aura-breathe">
+        <span class="material-symbols-outlined text-xl">chat</span>
+        <span>Chamar no WhatsApp</span>
+      </a>
+      <div class="text-center font-label-sm text-secondary">
+        (33) 9 9144-9728 • Governador Valadares
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       CONTEÚDO PRINCIPAL (MAIN)
+       ======================================================== -->
+  <main class="w-full pt-20 bg-background">
+    <div class="flex flex-col w-full">
+
+      <!-- Faixa de Aviso Superior -->
+      <section class="w-full bg-surface-container-high py-2 px-gutter">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+          <div class="flex items-center gap-space-sm flex-wrap">
+            <span class="inline-flex items-center gap-1 text-primary font-bold">
+              <span class="material-symbols-outlined text-[15px]">verified</span>
+              Criart 3D • Governador Valadares - MG
+            </span>
+            <span class="hidden sm:inline text-outline-variant">•</span>
+            <span class="flex items-center gap-1 text-secondary">
+              <span class="material-symbols-outlined text-[15px] text-tertiary">local_shipping</span>
+              Envios seguros para todo o território nacional
+            </span>
+          </div>
+          <div class="flex items-center gap-space-md">
+            <span class="flex items-center gap-1.5 font-semibold text-tertiary">
+              <span class="w-2 h-2 rounded-full bg-tertiary-container animate-ping-soft"></span>
+              Orçamentos respondidos em até 10 minutos
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Seção Hero Principal com Animação de Levitação e Revelação -->
+      <section class="relative w-full overflow-hidden bg-surface py-space-xl px-gutter">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
+          
+          <!-- Coluna de Texto e Conversão -->
+          <div class="lg:col-span-7 flex flex-col gap-space-md text-left reveal-on-scroll">
+            <div class="inline-flex items-center gap-2 self-start px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm uppercase tracking-wider shadow-sm">
+              <span class="material-symbols-outlined text-sm text-primary">view_in_ar</span>
+              Especialistas em Impressão 3D e Comunicação Visual
+            </div>
+
+            <h1 class="font-display text-display font-extrabold tracking-tight text-on-surface leading-[1.08]">
+              Aqui sua ideia <span class="text-primary-container">ganha forma!</span><br/>
+              <span class="text-primary font-bold">Do digital ao real.</span>
+            </h1>
+
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+              Transforme conceitos em objetos tangíveis com alta precisão milimétrica. Da prototipagem técnica e modelagem sob medida até a comunicação visual corporativa completa, cartões premium, banners e brindes de alto impacto.
+            </p>
+
+            <!-- Selos de Confiança -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm pt-space-xs">
+              <div class="flex items-center gap-space-xs p-space-xs rounded-lg bg-surface-container-low shadow-sm tech-card">
+                <span class="material-symbols-outlined text-tertiary text-xl">check_circle</span>
+                <span class="font-label-sm text-label-sm font-semibold text-on-surface">Envio para todo Brasil</span>
+              </div>
+              <div class="flex items-center gap-space-xs p-space-xs rounded-lg bg-surface-container-low shadow-sm tech-card">
+                <span class="material-symbols-outlined text-primary text-xl">speed</span>
+                <span class="font-label-sm text-label-sm font-semibold text-on-surface">Resposta em 10 min</span>
+              </div>
+              <div class="flex items-center gap-space-xs p-space-xs rounded-lg bg-surface-container-low shadow-sm tech-card">
+                <span class="material-symbols-outlined text-tertiary text-xl">workspace_premium</span>
+                <span class="font-label-sm text-label-sm font-semibold text-on-surface">Acabamento industrial</span>
+              </div>
+            </div>
+
+            <!-- Botões de Ação Hero -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-space-sm">
+              <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20com%20a%20Criart%203D" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-space-xs px-space-lg py-3 rounded-xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-headline-sm text-headline-sm shadow-xl btn-subtle animate-aura-breathe">
+                <span class="material-symbols-outlined text-2xl">chat</span>
+                <span>Solicitar Orçamento via WhatsApp</span>
+              </a>
+              <a href="#catalogo" class="inline-flex items-center justify-center gap-space-xs px-space-md py-3 rounded-xl bg-surface-container hover:bg-surface-container-high text-primary font-headline-sm text-headline-sm btn-subtle">
+                <span class="material-symbols-outlined text-xl">grid_view</span>
+                <span>Ver Catálogo Completo</span>
+              </a>
+            </div>
+
+            <!-- Informações de Contato -->
+            <div class="flex flex-wrap items-center gap-space-md pt-space-xs text-on-surface-variant font-label-md text-label-md">
+              <span class="flex items-center gap-1 text-on-surface font-semibold">
+                <span class="material-symbols-outlined text-primary text-base">call</span>
+                (33) 9 9144-9728
+              </span>
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary text-base">photo_camera</span>
+                @criart3d
+              </span>
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary text-base">location_on</span>
+                Governador Valadares - MG
+              </span>
+            </div>
+          </div>
+
+          <!-- Coluna Visual Showcase Bento (Levitação 3D Sutil) -->
+          <div class="lg:col-span-5 relative reveal-on-scroll delay-200">
+            <div class="relative rounded-2xl bg-surface-container-lowest p-space-md shadow-2xl overflow-hidden border border-outline-variant/30 animate-float-subtle">
+              <div class="absolute -top-12 -right-12 w-48 h-48 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+              
+              <div class="flex items-center justify-between pb-space-sm mb-space-sm border-b border-surface-container">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-error"></span>
+                  <span class="w-3 h-3 rounded-full bg-tertiary-container"></span>
+                  <span class="w-3 h-3 rounded-full bg-primary-container"></span>
+                  <span class="font-label-sm text-label-sm text-secondary font-semibold ml-2">CRIART 3D LAB PREVIEW</span>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">100% PERSONALIZADO</span>
+              </div>
+
+              <!-- Imagem Principal: Bulldog Low-Poly & Caneca -->
+              <div class="relative rounded-xl overflow-hidden shadow-md group">
+                <img 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFzxCqOUf0YLvhzrr6ulmAcbXV5hmRM3_JzhKSFwTUI9zagUSLsNP4uHvonZsSodMoQnAgr2YUDj8OTe_Rzbx2rSf9iiyQ9in42naF2HR-v2HYcF7FXbqtL3HXAUjK-Joq4ui7bG43EFd5spc2XD1zgbt_wm-AMG3K6YnQTcjKf9Y9lIUwqiK7wsHMReknWQO6t6F7LxKBV4mGmH8P3iGe94HESjknPexB7k_mwjGaqO16EYOyL8S42Q" 
+                  alt="Impressão 3D bulldog low-poly azul e caneca personalizada Criart 3D" 
+                  class="w-full h-72 object-cover object-center zoom-subtle" 
+                />
+                <div class="absolute bottom-3 left-3 bg-surface/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary-container text-lg">layers</span>
+                  <span class="font-label-sm text-label-sm font-bold text-on-surface">FDM &amp; Resina 8K • Low-Poly Blue Edition</span>
+                </div>
+              </div>
+
+              <!-- Miniaturas do Mosaico (Cartões, Chaveiros, Desenho Realista) -->
+              <div class="grid grid-cols-3 gap-space-xs mt-space-sm">
+                <div class="relative rounded-lg overflow-hidden h-20 shadow-sm group">
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx-GmKc9Wj_f1eva8ZAN5j30LVMARVV5uzlAG7pukWWv0uzFgWR8wUfgyuiurrvQp4yK3hMoiM5iGr51KZKGjNKYxXUHy1Dfr34CFFlH9rXxQsDJ9Rjxv1rBJeEEwaJUQ093LlkGTrnI-NWusKgr0cc8DDyS4Nh3EkMMJo4--FEVWwzas4y80BCfQyaXyTXhjaprrLGivND7ruJ60OSnwCe1ogIN_nfw_g44t8A2ORqt8GBNbDKsO-aQ" 
+                    alt="Cartões de visita de luxo" 
+                    class="w-full h-full object-cover zoom-subtle" 
+                  />
+                  <span class="absolute bottom-1 left-1 bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm px-1 rounded text-[10px]">Cartões</span>
+                </div>
+                <div class="relative rounded-lg overflow-hidden h-20 shadow-sm group">
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV9R7Ht1LiwP1emitsIkCdYY73O8FYQuzvyDbb-U3CImGiHatg8lySEZg12tRSs5wAaM-w9UyZf2_iUE_n7e8CkiEkOxeUcBnuRMJpxf01UIBLRnDSKnTs8_ij9fKEOdUShD-uv4HnRLeS-svLvC9LCj9N6XJnf-kpp4nxZx77ThrXQSfH1RG_d49n5FSGPNBBzwkYOR1mjIDy_0kJ70S1buaPAuxUFuSFl-VYgAEZJ2XftmbGY23J-w" 
+                    alt="Chaveiros 3D personalizados" 
+                    class="w-full h-full object-cover zoom-subtle" 
+                  />
+                  <span class="absolute bottom-1 left-1 bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm px-1 rounded text-[10px]">Chaveiros 3D</span>
+                </div>
+                <div class="relative rounded-lg overflow-hidden h-20 shadow-sm group">
+                  <img 
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXGBKsVS2DGDALBTnYAlFEQ18MHXJms9I_OjoxG_iAMalAOrsoU_kOeSVF-PZ6Sk6SUk1lxNM44Qr3a9AUfj0hNXi2cykWv2wceYCXhwu-tfD5xFH2T5PTmRY3t3OVOL6aNXOVsKodl6SlKJis1K1dgiYHp0JXHF5sl9x-6OiHVFio0uSlakUpK6NBEs4_Pd6ngLYA923x-VAiw35Ish1uLJjz6li5PuaIo43tM7Ml6Wphb9yCQLcvmQ" 
+                    alt="Desenho realista em grafite" 
+                    class="w-full h-full object-cover zoom-subtle" 
+                  />
+                  <span class="absolute bottom-1 left-1 bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm px-1 rounded text-[10px]">Arte Realista</span>
+                </div>
+              </div>
+
+              <!-- Barra de ação rápida -->
+              <div class="mt-space-sm p-space-sm rounded-lg bg-surface-container flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="material-symbols-outlined text-tertiary">check_circle_outline</span>
+                  <span class="font-body-sm text-body-sm text-on-surface font-medium">Orçamento sem compromisso</span>
+                </div>
+                <a href="#orcamento" class="font-label-sm text-label-sm text-primary font-bold hover:underline btn-subtle">Simular agora →</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================================
+           3 PILARES DE CONFIANÇA COM EFEITO DE CASCATA
+           ======================================================== -->
+      <section id="diferenciais" class="w-full bg-surface-container-low py-space-lg px-gutter">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+            
+            <!-- Pilar 1 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex items-start gap-space-md tech-card reveal-on-scroll delay-100">
+              <div class="w-14 h-14 shrink-0 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shadow-lg">
+                <span class="material-symbols-outlined text-3xl">verified</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">QUALIDADE GARANTIDA</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Impressoras calibradas, filamentos nobres (PLA+, PETG, ABS, TPU, Fibra de Carbono) e resinas de alta resolução com precisão dimensional milimétrica.
+                </p>
+              </div>
+            </div>
+
+            <!-- Pilar 2 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex items-start gap-space-md tech-card reveal-on-scroll delay-200">
+              <div class="w-14 h-14 shrink-0 rounded-xl bg-primary text-on-primary flex items-center justify-center shadow-lg">
+                <span class="material-symbols-outlined text-3xl">lightbulb</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">IDEIAS QUE SE TORNAM REALIDADE</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Do esboço inicial num papel até a peça acabada em suas mãos. Nós modelamos, ajustamos e materializamos o seu projeto com maestria.
+                </p>
+              </div>
+            </div>
+
+            <!-- Pilar 3 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-md flex items-start gap-space-md tech-card reveal-on-scroll delay-300">
+              <div class="w-14 h-14 shrink-0 rounded-xl bg-tertiary-container text-on-tertiary flex items-center justify-center shadow-lg">
+                <span class="material-symbols-outlined text-3xl">handshake</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">ATENDIMENTO PERSONALIZADO</h3>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                  Conversa direta e humanizada via WhatsApp. Orientamos a melhor escolha de material, espessura e acabamento com custo-benefício sob medida.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CATÁLOGO COMPLETO DE SERVIÇOS
+           ======================================================== -->
+      <section class="w-full bg-surface py-space-xl px-gutter" id="catalogo">
+        <div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+          
+          <!-- Cabeçalho do Catálogo -->
+          <div class="flex flex-col items-center text-center max-w-3xl mx-auto reveal-on-scroll">
+            <span class="px-space-md py-1 rounded-full bg-primary-fixed text-primary font-label-md text-label-md uppercase tracking-wider mb-2 font-bold">
+              NOSSO CATÁLOGO COMPLETO
+            </span>
+            <h2 class="font-headline-xl text-headline-xl text-on-surface font-bold">
+              Mais que impressão, soluções para o seu projeto!
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-2">
+              Conheça nosso ecossistema integrado: manufatura aditiva para engenharia e design, somado à comunicação visual completa para valorizar marcas e pessoas.
+            </p>
+
+            <!-- Filtros Interativos com Micro-press e Transições -->
+            <div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+              <button data-filter="all" class="catalog-filter-btn px-4 py-2 rounded-full font-label-md text-sm font-bold bg-primary-container text-on-primary shadow-md btn-subtle">
+                Todos os Serviços
+              </button>
+              <button data-filter="3d" class="catalog-filter-btn px-4 py-2 rounded-full font-label-md text-sm font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high btn-subtle">
+                Impressão 3D &amp; Engenharia
+              </button>
+              <button data-filter="visual" class="catalog-filter-btn px-4 py-2 rounded-full font-label-md text-sm font-semibold bg-surface-container text-on-surface-variant hover:bg-surface-container-high btn-subtle">
+                Comunicação Visual &amp; Gráfica
+              </button>
+            </div>
+          </div>
+
+          <!-- Segmento A: Impressão 3D, Modelagem & Engenharia -->
+          <div id="segmento-impressao" class="flex flex-col gap-space-md">
+            <div class="flex items-center gap-space-sm pb-space-xs reveal-on-scroll">
+              <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold">
+                <span class="material-symbols-outlined text-xl">precision_manufacturing</span>
+              </div>
+              <h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+                Impressão 3D &amp; Manufatura Técnica
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+              <!-- Card 1: Impressão 3D -->
+              <div class="p-space-lg rounded-2xl bg-surface-container-low shadow-sm flex flex-col justify-between group tech-card reveal-on-scroll delay-100">
+                <div class="flex flex-col gap-space-sm">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">deployed_code</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">IMPRESSÃO 3D</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Peças personalizadas, utilitários, peças de reposição técnica, itens de decoração requintados, brindes de alto impacto e action figures em FDM e Resina.
+                  </p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Quero%20um%20or%C3%A7amento%20de%20Impress%C3%A3o%203D" target="_blank" rel="noopener noreferrer" class="mt-space-md inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:text-primary-container btn-subtle">
+                  <span>Orçar Impressão 3D</span>
+                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- Card 2: Manutenção de Impressora 3D -->
+              <div class="p-space-lg rounded-2xl bg-surface-container-low shadow-sm flex flex-col justify-between group tech-card reveal-on-scroll delay-200">
+                <div class="flex flex-col gap-space-sm">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">build</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">MANUTENÇÃO DE IMPRESSORA 3D</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Limpeza técnica preventiva, nivelamento fino de mesa, desentupimento de extrusor, calibração precisa de passo (e-steps), fluxo e suporte técnico completo.
+                  </p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Preciso%20de%20Manuten%C3%A7%C3%A3o%20para%20minha%20impressora%203D" target="_blank" rel="noopener noreferrer" class="mt-space-md inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:text-primary-container btn-subtle">
+                  <span>Agendar Manutenção</span>
+                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- Card 3: Treinamento Especializado -->
+              <div class="p-space-lg rounded-2xl bg-surface-container-low shadow-sm flex flex-col justify-between group tech-card reveal-on-scroll delay-300">
+                <div class="flex flex-col gap-space-sm">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">school</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">TREINAMENTO PRÁTICO</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Aprenda a fatiar, modelar, escolher filamentos ideais e dominar sua impressora sem desperdiçar material. Aulas práticas para iniciantes e avançados.
+                  </p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Quero%20saber%20sobre%20os%20Treinamentos%20de%20Impress%C3%A3o%203D" target="_blank" rel="noopener noreferrer" class="mt-space-md inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:text-primary-container btn-subtle">
+                  <span>Ver Conteúdo &amp; Vagas</span>
+                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- Card 4: Modelagem 3D -->
+              <div class="p-space-lg rounded-2xl bg-surface-container-low shadow-sm flex flex-col justify-between group tech-card reveal-on-scroll delay-400">
+                <div class="flex flex-col gap-space-sm">
+                  <div class="w-12 h-12 rounded-xl bg-surface-container-highest text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                    <span class="material-symbols-outlined text-2xl">view_in_ar</span>
+                  </div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-bold">MODELAGEM 3D</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    De ideias rascunhadas a projetos reais. Modelagem paramétrica CAD, peças técnicas mecânicas e esculturas digitais prontas para impressão sem erros.
+                  </p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Preciso%20de%20um%20projeto%20de%20Modelagem%203D" target="_blank" rel="noopener noreferrer" class="mt-space-md inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:text-primary-container btn-subtle">
+                  <span>Modelar Minha Ideia</span>
+                  <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Segmento B: Comunicação Visual & Gráfica -->
+          <div id="segmento-comunicacao" class="flex flex-col gap-space-md pt-space-md">
+            <div class="flex items-center gap-space-sm pb-space-xs reveal-on-scroll">
+              <div class="w-8 h-8 rounded-lg bg-tertiary text-on-tertiary flex items-center justify-center font-bold">
+                <span class="material-symbols-outlined text-xl">palette</span>
+              </div>
+              <h3 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+                Comunicação Visual &amp; Material Promocional
+              </h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+              <!-- Item 1: Logomarca -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-100">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">draw</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Desenvolvimento de Logomarca</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Sua marca com identidade visual moderna, elegante e memorável.</p>
+                </div>
+              </div>
+
+              <!-- Item 2: Cartão de Visita -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-200">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">badge</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Cartão de Visita</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Acabamento refinado fosco, verniz localizado, hot stamping e papel encorpado.</p>
+                </div>
+              </div>
+
+              <!-- Item 3: Convites -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-300">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">mail</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Convites Personalizados</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Para casamentos, aniversários, formaturas e eventos empresariais solenes.</p>
+                </div>
+              </div>
+
+              <!-- Item 4: Panfletos -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-400">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">article</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Panfletos &amp; Folders</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Impressão de alta definição para distribuição comercial eficiente e direta.</p>
+                </div>
+              </div>
+
+              <!-- Item 5: Banners -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-100">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">flag</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Banners &amp; Wind Banners</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Lonas resistentes e estruturas metálicas para destaque de fachadas e eventos.</p>
+                </div>
+              </div>
+
+              <!-- Item 6: Placas -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-200">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">signpost</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Placas de Sinalização</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Placas em ACM, PVC expandido e acrílico com iluminação ou corte especial.</p>
+                </div>
+              </div>
+
+              <!-- Item 7: Chaveiros 3D -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-300">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">key</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Chaveiros 3D Sob Medida</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Chaveiros com a logomarca da sua empresa em relevo tridimensional real.</p>
+                </div>
+              </div>
+
+              <!-- Item 8: Canecas Personalizadas -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-400">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">local_cafe</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Canecas Personalizadas</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Cerâmica AAA, acabamento brilhante ou fosco com sua marca ou foto.</p>
+                </div>
+              </div>
+
+              <!-- Item 9: Camisas -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-100">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">apparel</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Camisas &amp; Uniformes</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Sublimação total, serigrafia e DTF para sua equipe ou eventos especiais.</p>
+                </div>
+              </div>
+
+              <!-- Item 10: Desenho Manual Realista -->
+              <div class="p-space-md rounded-2xl bg-surface-container-lowest flex items-start gap-space-sm tech-card reveal-on-scroll delay-200">
+                <div class="w-10 h-10 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-xl">history_edu</span>
+                </div>
+                <div>
+                  <h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Desenho Manual Realista</h4>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">Retratos à mão feitos com técnica de grafite e sombreamento profissional.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================================
+           SIMULADOR RÁPIDO DE ORÇAMENTO COM MICRO-INTERAÇÕES
+           ======================================================== -->
+      <section id="orcamento" class="w-full bg-surface-container py-space-xl px-gutter">
+        <div class="max-w-4xl mx-auto rounded-3xl bg-surface-container-lowest p-space-lg sm:p-space-xl shadow-xl border border-outline-variant/20 reveal-on-scroll">
+          
+          <div class="flex flex-col items-center text-center pb-space-md">
+            <span class="px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold uppercase">
+              Simulador Rápido • 1 Clique
+            </span>
+            <h3 class="font-headline-lg text-headline-lg text-on-surface font-bold mt-2">
+              Monte seu Orçamento Direto para o WhatsApp
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant max-w-lg mt-1">
+              Selecione as opções do seu projeto. O sistema prepara a mensagem pré-formatada pronta para o especialista da Criart 3D te atender.
+            </p>
+          </div>
+
+          <!-- Formulário Gerenciado pelo JavaScript Separado -->
+          <form id="calculatorForm" class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+            
+            <!-- Tipo de Serviço -->
+            <div class="flex flex-col gap-1">
+              <label for="calcService" class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Tipo de Serviço Principal</label>
+              <select id="calcService" class="h-12 px-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm border border-outline-variant/30 focus:outline-none input-subtle">
+                <option value="Impressão 3D Personalizada">Impressão 3D (Peças, Protótipos ou Brindes)</option>
+                <option value="Modelagem 3D do Zero">Modelagem 3D / Projeto CAD</option>
+                <option value="Manutenção de Impressora 3D">Manutenção / Calibração de Impressora 3D</option>
+                <option value="Canecas Personalizadas">Canecas Personalizadas</option>
+                <option value="Cartões de Visita">Cartões de Visita Premium</option>
+                <option value="Chaveiros 3D com Logo">Chaveiros 3D Exclusivos</option>
+                <option value="Banners e Placas">Banners, Placas ou Sinalização</option>
+                <option value="Desenho Manual Realista">Desenho Manual Realista</option>
+                <option value="Outro Projeto Sob Medida">Outro Projeto Criativo</option>
+              </select>
+            </div>
+
+            <!-- Finalidade -->
+            <div class="flex flex-col gap-1">
+              <label for="calcPurpose" class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Finalidade do Projeto</label>
+              <select id="calcPurpose" class="h-12 px-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm border border-outline-variant/30 focus:outline-none input-subtle">
+                <option value="Empresa / Brinde Corporativo">Empresa / Comércio / Brinde</option>
+                <option value="Prototipagem Técnica / Engenharia">Prototipagem Técnica / Engenharia</option>
+                <option value="Uso Pessoal / Presente Exclusivo">Uso Pessoal / Presente Criativo</option>
+                <option value="Evento / Casamento / Festa">Evento / Festa / Celebração</option>
+              </select>
+            </div>
+
+            <!-- Prazo Desejado -->
+            <div class="flex flex-col gap-1">
+              <label for="calcUrgency" class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Prazo Desejado</label>
+              <select id="calcUrgency" class="h-12 px-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm border border-outline-variant/30 focus:outline-none input-subtle">
+                <option value="Prazo Normal (3 a 5 dias úteis)">Prazo Normal (3 a 5 dias úteis)</option>
+                <option value="Urgente (Prioridade de Produção)">Urgente (Preciso o quanto antes)</option>
+                <option value="Apenas orçando sem pressa">Apenas cotando ideias</option>
+              </select>
+            </div>
+
+            <!-- Cidade de Entrega -->
+            <div class="flex flex-col gap-1">
+              <label for="calcCity" class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Sua Cidade de Entrega</label>
+              <input type="text" id="calcCity" value="Governador Valadares - MG" placeholder="Ex: Governador Valadares ou outra cidade" class="h-12 px-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm border border-outline-variant/30 focus:outline-none input-subtle" />
+            </div>
+
+            <!-- Detalhes do Projeto -->
+            <div class="md:col-span-2 flex flex-col gap-1">
+              <label for="calcDetails" class="font-label-sm text-label-sm uppercase font-bold text-on-surface">Detalhes Rápidos (Opcional)</label>
+              <input type="text" id="calcDetails" placeholder="Ex: Quantidade aproximada, se já possui arquivo .STL ou se precisa desenhar" class="h-12 px-space-sm rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm border border-outline-variant/30 focus:outline-none input-subtle" />
+            </div>
+
+            <!-- Botão de Envio com Micro-press e Pulso de Atenção -->
+            <div class="md:col-span-2 pt-space-xs">
+              <button type="submit" class="w-full h-14 rounded-xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-headline-sm text-headline-sm font-bold flex items-center justify-center gap-space-sm shadow-xl btn-subtle animate-aura-breathe cursor-pointer">
+                <span class="material-symbols-outlined text-2xl">send</span>
+                <span>Gerar e Enviar Especificações para o WhatsApp</span>
+              </button>
+              <p class="text-center font-label-sm text-label-sm text-on-surface-variant mt-2">
+                Ao clicar, seu aplicativo de WhatsApp abrirá com a mensagem montada para o número (33) 9 9144-9728.
+              </p>
+            </div>
+          </form>
+
+        </div>
+      </section>
+
+      <!-- ========================================================
+           VITRINE CRIART 3D COM ZOOM SUAVE
+           ======================================================== -->
+      <section id="vitrine" class="w-full bg-surface py-space-xl px-gutter">
+        <div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+          
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md reveal-on-scroll">
+            <div>
+              <span class="px-space-sm py-1 rounded bg-primary-fixed text-primary font-label-md text-label-md font-bold uppercase">
+                Vitrine Criart 3D
+              </span>
+              <h2 class="font-headline-xl text-headline-xl text-on-surface font-bold mt-2">
+                Projetos reais entregues com precisão
+              </h2>
+            </div>
+            <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Vi%20a%20vitrine%20e%20gostaria%20de%20um%20projeto%20personalizado" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:underline btn-subtle">
+              <span>Ver mais no Instagram @criart3d</span>
+              <span class="material-symbols-outlined text-sm">open_in_new</span>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+            
+            <!-- Vitrine 1: Vaso Geométrico & Low Poly Art -->
+            <div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-md flex flex-col tech-card group reveal-on-scroll delay-100">
+              <div class="relative h-64 overflow-hidden">
+                <img 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuALPsSGIF1n_wQI8wwQiMy2J9kUm-HVkRsIwL95qo6-mRMtfsRkN9S8gelpL9bh4S3YMFgzSy-Tv1tIfJgZnMYVJfEpfag0NyMxqJZnVvks9DTy5CZk2rN3XbNS7lMQEa37XuPAPTRApLyhS-KhUZMy9_Fu3cAKiy1AvujBorL4VgcjEIUi30DFHOgYjXN-Zuwiu8Vobzlq2wTSdoIKdYZqVdSkAQT64Vswf2iGumDZ2_yM9FqRlI83Yg" 
+                  alt="Vaso algorítmico azul e escultura low-poly" 
+                  class="w-full h-full object-cover zoom-subtle" 
+                />
+                <span class="absolute top-3 right-3 px-space-xs py-1 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm font-semibold">
+                  Decoração Low-Poly
+                </span>
+              </div>
+              <div class="p-space-md flex flex-col justify-between flex-1 gap-space-sm">
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Esculturas &amp; Vasos Algorítmicos</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Design de geometria facetada com brilho sedoso e resistência mecânica superior para ambientes contemporâneos.</p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Quero%20uma%20pe%C3%A7a%20decorativa%20como%20o%20vaso%20e%20o%20c%C3%A3o%20low-poly" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-label-md text-label-md text-tertiary font-bold btn-subtle">
+                  <span>Quero uma peça similar</span>
+                  <span class="material-symbols-outlined text-sm">chat</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Vitrine 2: Kit Corporativo Caneca + Chaveiro 3D -->
+            <div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-md flex flex-col tech-card group reveal-on-scroll delay-200">
+              <div class="relative h-64 overflow-hidden">
+                <img 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcDnhARY4XdJbojVjwAO1kWorKjLlHapiKSO5xE1t-786b7PNwcinSQVOujz65B9mt_g-Y38vMQcDZzmK2-BoxnJJjRWSJc7zkAb15DMU154KDuCDNCDD4KjlEfX8SvK28_NEPaMwZ3OjZhl_ojA_4-3eLaEcfuu3TEcge6BZ29qJDSWl1qDu5gBPMt8J6gbLyd5ZHgSwAYCqm30omZXsTxAK2qZzarwrnn2nk9A2BQnFg_BfQuq87vg" 
+                  alt="Kit caneca fosca e chaveiros 3D hexagonais" 
+                  class="w-full h-full object-cover zoom-subtle" 
+                />
+                <span class="absolute top-3 right-3 px-space-xs py-1 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm font-semibold">
+                  Brindes Corporativos
+                </span>
+              </div>
+              <div class="p-space-md flex flex-col justify-between flex-1 gap-space-sm">
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Canecas &amp; Chaveiros 3D</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Identidade em 3 dimensões reais para presentear clientes com lembranças inesquecíveis que fortalecem seu negócio.</p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Gostaria%20de%20or%C3%A7ar%20um%20kit%20de%20canecas%20e%20chaveiros%203D" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-label-md text-label-md text-tertiary font-bold btn-subtle">
+                  <span>Solicitar Kit Corporativo</span>
+                  <span class="material-symbols-outlined text-sm">chat</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Vitrine 3: Desenhos Realistas & Camisas Personalizadas -->
+            <div class="rounded-2xl overflow-hidden bg-surface-container-lowest shadow-md flex flex-col tech-card group reveal-on-scroll delay-300">
+              <div class="relative h-64 overflow-hidden">
+                <img 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGyOvqpoBJRUpaU91DE-U99y0vSXWbxByUi0cxBMP3Pf7aIlaZD1IBcEmVxSNwQrM0sX8rWs8EOPyVLGsor4nF7TzmAPjjbFgW48nR6rRL0JOjed8AUjhUE8SZO1UEtBb0vSwEo2a6Kj9Pbu7g7kxJswSgK8cdj4lWJATlYIJsSg9sZJCgbVnA-b9bhfYg89Tj5UCzCqDULsR3N-Cv-E5YFiKYEqq5p00Wr-30nEAypz8Z61mHSM3Akg" 
+                  alt="Desenho realista e camiseta personalizada Criart 3D" 
+                  class="w-full h-full object-cover zoom-subtle" 
+                />
+                <span class="absolute top-3 right-3 px-space-xs py-1 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm font-semibold">
+                  Arte Manual &amp; Têxtil
+                </span>
+              </div>
+              <div class="p-space-md flex flex-col justify-between flex-1 gap-space-sm">
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Retratos Realistas &amp; Vestuário</h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Expressão artística manual de alto nível para homenagens afetivas, associada a confecção de camisas exclusivas.</p>
+                </div>
+                <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Gostaria%20de%20encomendar%20um%20desenho%20realista%20ou%20camisas" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 font-label-md text-label-md text-tertiary font-bold btn-subtle">
+                  <span>Encomendar Obra ou Camisa</span>
+                  <span class="material-symbols-outlined text-sm">chat</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           PROVA SOCIAL & AVALIAÇÕES
+           ======================================================== -->
+      <section id="avaliacoes" class="w-full bg-surface-container-low py-space-xl px-gutter">
+        <div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+          
+          <div class="text-center max-w-2xl mx-auto reveal-on-scroll">
+            <div class="flex items-center justify-center gap-1 text-tertiary mb-1">
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+              <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">star</span>
+            </div>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">
+              O que dizem os clientes da Criart 3D
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Confiança construída com precisão, atendimento rápido e compromisso com o resultado final.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+            
+            <!-- Depoimento 1 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between tech-card reveal-on-scroll delay-100">
+              <p class="font-body-md text-body-md text-on-surface-variant italic">
+                "Precisei com urgência de uma peça plástica de reposição que havia quebrado em uma máquina de marcenaria. A Criart 3D modelou na hora e imprimiu em PETG resistente. Funcionou com perfeição!"
+              </p>
+              <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between">
+                <div>
+                  <p class="font-label-md text-label-md font-bold text-on-surface">Carlos Henrique M.</p>
+                  <p class="font-label-sm text-label-sm text-secondary">Governador Valadares - MG</p>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">Peça Técnica</span>
+              </div>
+            </div>
+
+            <!-- Depoimento 2 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between tech-card reveal-on-scroll delay-200">
+              <p class="font-body-md text-body-md text-on-surface-variant italic">
+                "Fizemos 200 chaveiros 3D em formato do nosso logotipo e as canecas para o lançamento do escritório. Todos os clientes ficaram impressionados com o relevo tridimensional e o acabamento."
+              </p>
+              <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between">
+                <div>
+                  <p class="font-label-md text-label-md font-bold text-on-surface">Mariana Faria</p>
+                  <p class="font-label-sm text-label-sm text-secondary">Advocacia Integrada</p>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">Brindes Corporativos</span>
+              </div>
+            </div>
+
+            <!-- Depoimento 3 -->
+            <div class="p-space-lg rounded-2xl bg-surface-container-lowest shadow-sm flex flex-col justify-between tech-card reveal-on-scroll delay-300">
+              <p class="font-body-md text-body-md text-on-surface-variant italic">
+                "Minha impressora 3D estava com problema no fluxo e desalinhada há semanas. O serviço de calibração e manutenção resolveu no mesmo dia. Suporte nota 10 pelo WhatsApp!"
+              </p>
+              <div class="mt-space-md pt-space-sm border-t border-surface-container flex items-center justify-between">
+                <div>
+                  <p class="font-label-md text-label-md font-bold text-on-surface">Lucas Peixoto</p>
+                  <p class="font-label-sm text-label-sm text-secondary">Maker / Criador</p>
+                </div>
+                <span class="px-2 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm font-bold">Manutenção</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           FAQ ESTRUTURADO (COM ACCORDION FLUIDO)
+           ======================================================== -->
+      <section id="faq" class="w-full bg-surface py-space-xl px-gutter">
+        <div class="max-w-4xl mx-auto flex flex-col gap-space-lg">
+          
+          <div class="text-center reveal-on-scroll">
+            <span class="px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm font-bold uppercase">
+              Tire Suas Dúvidas
+            </span>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold mt-2">
+              Perguntas Frequentes (FAQ)
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Tudo o que você precisa saber antes de iniciar sua produção com a Criart 3D.</p>
+          </div>
+
+          <div class="flex flex-col gap-space-sm">
+            
+            <!-- Q1 -->
+            <div class="faq-item p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/30 cursor-pointer reveal-on-scroll delay-100">
+              <div class="faq-header flex items-center justify-between select-none">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">help</span>
+                  Como envio meu arquivo 3D ou projeto?
+                </h3>
+                <span class="material-symbols-outlined text-secondary text-2xl faq-icon">expand_more</span>
+              </div>
+              <div class="faq-answer">
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-3 pl-7">
+                  Você pode nos enviar arquivos nos formatos <strong>.STL, .OBJ, .STEP, .3MF ou arquivos CAD</strong> diretamente pelo WhatsApp ou link do Google Drive. Se você não possui o arquivo pronto, nossa equipe modela para você a partir de fotos, medidas ou desenhos à mão.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="faq-item p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/30 cursor-pointer reveal-on-scroll delay-200">
+              <div class="faq-header flex items-center justify-between select-none">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">help</span>
+                  Vocês fazem modelagem 3D do zero se eu não tiver o projeto pronto?
+                </h3>
+                <span class="material-symbols-outlined text-secondary text-2xl faq-icon">expand_more</span>
+              </div>
+              <div class="faq-answer">
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-3 pl-7">
+                  Sim! Nosso lema é "Sua ideia ganha forma!". Basta nos explicar sua necessidade ou enviar um rascunho com as dimensões aproximadas. Nós desenvolvemos o projeto 3D digital, validamos com você e colocamos em fabricação.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="faq-item p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/30 cursor-pointer reveal-on-scroll delay-300">
+              <div class="faq-header flex items-center justify-between select-none">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">help</span>
+                  Qual o prazo médio de produção e entrega?
+                </h3>
+                <span class="material-symbols-outlined text-secondary text-2xl faq-icon">expand_more</span>
+              </div>
+              <div class="faq-answer">
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-3 pl-7">
+                  Itens simples e prototipagens rápidas costumam ficar prontos entre 24 a 48 horas. Lotes corporativos maiores (como chaveiros e canecas) variam de 3 a 7 dias úteis. Projetos urgentes contam com atendimento prioritário.
+                </p>
+              </div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="faq-item p-space-md rounded-2xl bg-surface-container-low border border-outline-variant/30 cursor-pointer reveal-on-scroll delay-400">
+              <div class="faq-header flex items-center justify-between select-none">
+                <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">help</span>
+                  A Criart 3D envia para fora de Governador Valadares?
+                </h3>
+                <span class="material-symbols-outlined text-secondary text-2xl faq-icon">expand_more</span>
+              </div>
+              <div class="faq-answer">
+                <p class="font-body-sm text-body-sm text-on-surface-variant mt-3 pl-7">
+                  Com certeza! Enviamos com segurança para todo o Brasil através dos Correios e transportadoras parceiras, com embalagem reforçada para garantir que suas peças cheguem intactas.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           CTA MÁXIMO DE FECHAMENTO
+           ======================================================== -->
+      <section class="w-full bg-surface-container-highest py-space-xl px-gutter relative overflow-hidden">
+        <div class="max-w-5xl mx-auto rounded-3xl bg-inverse-surface text-inverse-on-surface p-space-lg sm:p-space-xl text-center relative shadow-2xl overflow-hidden reveal-on-scroll">
+          
+          <div class="absolute -top-24 -left-24 w-72 h-72 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="absolute -bottom-24 -right-24 w-72 h-72 bg-tertiary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+
+          <div class="relative z-10 flex flex-col items-center gap-space-md">
+            <div class="w-16 h-16 rounded-2xl bg-primary-container text-on-primary flex items-center justify-center shadow-lg animate-float-subtle">
+              <span class="material-symbols-outlined text-4xl">view_in_ar</span>
+            </div>
+            
+            <span class="px-space-md py-1 rounded-full bg-primary-container/20 text-inverse-primary font-label-md text-label-md font-bold uppercase tracking-wider">
+              Pronto para tirar o projeto do papel?
+            </span>
+
+            <h2 class="font-display text-display font-extrabold tracking-tight text-white max-w-3xl">
+              Do digital ao real!<br />
+              <span class="text-primary-container">Nós cuidamos de cada detalhe.</span>
+            </h2>
+
+            <p class="font-body-lg text-body-lg text-slate-300 max-w-2xl">
+              Converse agora mesmo com nosso especialista no WhatsApp. Envie suas ideias, receba simulação de valores e descubra o que a impressão 3D e a comunicação visual de ponta podem fazer por você.
+            </p>
+
+            <!-- Botão Gigante de WhatsApp com Pulso Suave -->
+            <div class="pt-space-sm flex flex-col sm:flex-row items-center justify-center gap-space-md w-full max-w-md">
+              <a href="https://wa.me/5533991449728?text=Ol%C3%A1!%20Estou%20no%20site%20da%20Criart%203D%20e%20gostaria%20de%20um%20or%C3%A7amento%20imediato" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-space-sm px-space-lg py-4 rounded-2xl bg-tertiary-container hover:bg-tertiary text-on-tertiary font-headline-sm text-headline-sm font-bold shadow-2xl btn-subtle animate-aura-breathe">
+                <span class="material-symbols-outlined text-3xl">chat</span>
+                <span>Chamar no WhatsApp Agora</span>
+              </a>
+            </div>
+
+            <!-- Dados da Empresa -->
+            <div class="flex flex-wrap items-center justify-center gap-space-md text-slate-300 font-label-sm text-label-sm pt-space-xs">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary-container text-base">pin_drop</span>
+                Governador Valadares - MG
+              </span>
+              <span class="text-slate-500">•</span>
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary-container text-base">call</span>
+                (33) 9 9144-9728
+              </span>
+              <span class="text-slate-500">•</span>
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-primary-container text-base">alternate_email</span>
+                @criart3d
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ========================================================
+       BOTÃO FLUTUANTE WHATSAPP (COM NUDGE DELICADO PERIÓDICO)
+       ======================================================== -->
+  <div class="fixed bottom-6 right-6 z-50 flex items-center group animate-gentle-nudge">
+    <a href="https://wa.me/5533991449728" target="_blank" rel="noopener noreferrer" class="flex items-center gap-space-sm pl-space-md pr-space-sm py-space-xs bg-surface-container-lowest text-on-surface rounded-full shadow-[0_12px_32px_-4px_rgba(18,28,42,0.18)] hover:shadow-[0_16px_40px_-4px_rgba(0,173,79,0.3)] btn-subtle border border-outline-variant/20">
+      <div class="flex flex-col text-left">
+        <span class="font-label-sm text-label-sm text-tertiary flex items-center gap-1">
+          <span class="w-2 h-2 rounded-full bg-tertiary-container animate-ping-soft"></span>
+          Online agora
+        </span>
+        <span class="font-label-md text-label-md text-on-surface font-bold">Atendimento rápido</span>
+      </div>
+      <div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary flex items-center justify-center shadow-[0_4px_12px_rgba(0,173,79,0.35)]">
+        <span class="material-symbols-outlined text-2xl">chat</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- ========================================================
+       RODAPÉ COMPLETO
+       ======================================================== -->
+  <footer class="w-full bg-surface-container-low text-on-surface pt-space-xl pb-space-lg border-t border-surface-container">
+    <div class="w-full px-gutter">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-xl">
+        
+        <!-- Coluna 1: Sobre -->
+        <div class="flex flex-col gap-space-sm">
+          <div class="flex items-center gap-space-xs">
+            <div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+              <span class="material-symbols-outlined text-xl">view_in_ar</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-surface">CRIART 3D</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-on-surface-variant">
+            Do digital ao real com máxima precisão. Soluções de alta performance em impressão 3D (FDM e Resina), modelagem sob medida, comunicação visual estratégica e corte para indústrias, comércios e criadores.
+          </p>
+          <div class="flex items-center gap-space-sm pt-space-xs">
+            <span class="px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+              Governador Valadares - MG
+            </span>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Soluções & Links -->
+        <div class="flex flex-col gap-space-sm">
+          <h4 class="font-headline-sm text-headline-sm text-on-surface">Soluções &amp; Links</h4>
+          <ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            <li><a href="#catalogo" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Impressão 3D &amp; Prototipagem</a></li>
+            <li><a href="#catalogo" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Comunicação Visual &amp; Fachadas</a></li>
+            <li><a href="#catalogo" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Manutenção &amp; Treinamento</a></li>
+            <li><a href="#vitrine" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Portfólio de Projetos Reais</a></li>
+            <li><a href="#diferenciais" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Diferenciais Tecnológicos</a></li>
+            <li><a href="#faq" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-sm">arrow_right</span>Perguntas Frequentes (FAQ)</a></li>
+          </ul>
+        </div>
+
+        <!-- Coluna 3: Atendimento Direto -->
+        <div class="flex flex-col gap-space-sm">
+          <h4 class="font-headline-sm text-headline-sm text-on-surface">Atendimento Direto</h4>
+          <div class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            <div class="flex items-start gap-space-xs">
+              <span class="material-symbols-outlined text-primary text-lg">schedule</span>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface font-semibold">Horário de Funcionamento</p>
+                <p>Segunda a Sexta: 08:00 às 18:00</p>
+                <p>Sábado: 08:00 às 12:00</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-space-xs pt-space-xs">
+              <span class="material-symbols-outlined text-primary text-lg">phone_iphone</span>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface font-semibold">WhatsApp Comercial</p>
+                <a href="https://wa.me/5533991449728" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">(33) 9 9144-9728</a>
+              </div>
+            </div>
+            <div class="flex items-start gap-space-xs pt-space-xs">
+              <span class="material-symbols-outlined text-primary text-lg">photo_camera</span>
+              <div>
+                <p class="font-label-md text-label-md text-on-surface font-semibold">Instagram</p>
+                <a href="https://instagram.com/criart3d" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline">@criart3d</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna 4: Unidade Física & Garantia -->
+        <div class="flex flex-col gap-space-sm">
+          <h4 class="font-headline-sm text-headline-sm text-on-surface">Unidade Física</h4>
+          <div class="flex items-start gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+            <span class="material-symbols-outlined text-primary text-lg">location_on</span>
+            <div>
+              <p class="font-label-md text-label-md text-on-surface font-semibold">Governador Valadares - MG</p>
+              <p>Atendimento regional e envios para todo o Brasil com embalagem técnica protegida.</p>
+            </div>
+          </div>
+          <div class="p-space-sm bg-surface-container rounded-lg flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+            <span class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-tertiary text-sm">verified</span>
+              Garantia de Qualidade
+            </span>
+            <span class="font-bold text-primary">100% Validado</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Linha Final de Copyright -->
+      <div class="pt-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm border-t border-surface-container">
+        <p>© 2025 CRIART 3D - Impressão 3D &amp; Comunicação Visual. Todos os direitos reservados.</p>
+        <div class="flex items-center gap-space-md font-label-sm text-label-sm">
+          <a href="#faq" class="hover:text-primary transition-colors">Política de Atendimento</a>
+          <span class="text-outline-variant">•</span>
+          <a href="#faq" class="hover:text-primary transition-colors">Termos de Serviço</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       ARQUIVO JAVASCRIPT SEPARADO (PURO PARA GITHUB PAGES)
+       ======================================================== -->
+  <script defer src="script.js"></script>
+</body>
+</html>

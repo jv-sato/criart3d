@@ -1,0 +1,511 @@
+/* =============================================================
+   CRIART 3D - Impressão 3D & Comunicação Visual
+   Arquivo CSS Puro (style.css) para GitHub Pages
+   ============================================================= */
+
+:root {
+  --primary: #006491;
+  --primary-container: #009fe3;
+  --on-primary: #ffffff;
+  --on-primary-container: #00324b;
+  --primary-fixed: #c9e6ff;
+  --primary-fixed-dim: #8aceff;
+  --on-primary-fixed: #001e2f;
+  --on-primary-fixed-variant: #004b6f;
+
+  --secondary: #535f75;
+  --secondary-container: #d3e0fa;
+  --on-secondary: #ffffff;
+  --on-secondary-container: #576379;
+  --secondary-fixed: #d6e3fd;
+  --secondary-fixed-dim: #bac7e1;
+  --on-secondary-fixed: #0f1c2f;
+  --on-secondary-fixed-variant: #3b475c;
+
+  --tertiary: #006d2f;
+  --tertiary-container: #00ad4f;
+  --on-tertiary: #ffffff;
+  --on-tertiary-container: #003714;
+  --tertiary-fixed: #66ff8e;
+  --tertiary-fixed-dim: #3de273;
+  --on-tertiary-fixed: #002109;
+  --on-tertiary-fixed-variant: #005322;
+
+  --background: #f9f9ff;
+  --on-background: #121c2a;
+
+  --surface: #f9f9ff;
+  --surface-dim: #d0daef;
+  --surface-bright: #f9f9ff;
+  --surface-variant: #d9e3f7;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f0f3ff;
+  --surface-container: #e7eeff;
+  --surface-container-high: #dfe8fd;
+  --surface-container-highest: #d9e3f7;
+  --on-surface: #121c2a;
+  --on-surface-variant: #3e4850;
+
+  --outline: #6e7881;
+  --outline-variant: #bec8d2;
+  --inverse-surface: #273140;
+  --inverse-on-surface: #ebf1ff;
+  --inverse-primary: #8aceff;
+
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error: #ffffff;
+  --on-error-container: #93000a;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--on-surface);
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f0f3ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #bec8d2;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6e7881;
+}
+
+/* -------------------------------------------------------------
+   Tipografia Personalizada (Sora & Inter)
+   ------------------------------------------------------------- */
+.font-display {
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.font-headline-xl {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.font-headline-lg {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.font-headline-md {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.font-headline-sm {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+}
+
+.font-body-lg {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.font-body-md {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.font-body-sm {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.font-label-lg {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.font-label-md {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.font-label-sm {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+/* Tamanhos de Fonte */
+.text-display {
+  font-size: 3.5rem;
+  line-height: 4rem;
+}
+@media (max-width: 768px) {
+  .text-display {
+    font-size: 2.25rem;
+    line-height: 2.75rem;
+  }
+}
+
+.text-headline-xl {
+  font-size: 2.5rem;
+  line-height: 3rem;
+}
+@media (max-width: 768px) {
+  .text-headline-xl {
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+  }
+}
+
+.text-headline-lg {
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.text-headline-sm {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-body-lg { font-size: 1.125rem; }
+.text-body-md { font-size: 1rem; }
+.text-body-sm { font-size: 0.875rem; }
+.text-label-md { font-size: 0.8125rem; }
+.text-label-sm { font-size: 0.6875rem; }
+
+/* -------------------------------------------------------------
+   Espaçamentos e Gutters
+   ------------------------------------------------------------- */
+.px-gutter {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+@media (max-width: 640px) {
+  .px-gutter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+.gap-space-xs { gap: 0.25rem; }
+.gap-space-sm { gap: 0.5rem; }
+.gap-space-md { gap: 1rem; }
+.gap-space-lg { gap: 1.5rem; }
+.gap-space-xl { gap: 2.5rem; }
+
+.p-space-xs { padding: 0.25rem; }
+.p-space-sm { padding: 0.5rem; }
+.p-space-md { padding: 1rem; }
+.p-space-lg { padding: 1.5rem; }
+.p-space-xl { padding: 2.5rem; }
+
+.pt-space-xs { padding-top: 0.25rem; }
+.pt-space-sm { padding-top: 0.5rem; }
+.pt-space-md { padding-top: 1rem; }
+.pt-space-lg { padding-top: 1.5rem; }
+.pt-space-xl { padding-top: 2.5rem; }
+
+.pb-space-xs { padding-bottom: 0.25rem; }
+.pb-space-sm { padding-bottom: 0.5rem; }
+.pb-space-md { padding-bottom: 1rem; }
+.pb-space-lg { padding-bottom: 1.5rem; }
+.pb-space-xl { padding-bottom: 2.5rem; }
+
+.py-space-sm { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-space-md { padding-top: 1rem; padding-bottom: 1rem; }
+.py-space-lg { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-space-xl { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+
+.px-space-xs { padding-left: 0.25rem; padding-right: 0.25rem; }
+.px-space-sm { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-space-md { padding-left: 1rem; padding-right: 1rem; }
+.px-space-lg { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-space-xl { padding-left: 2.5rem; padding-right: 2.5rem; }
+
+.mb-space-sm { margin-bottom: 0.5rem; }
+.mb-space-md { margin-bottom: 1rem; }
+.mt-space-sm { margin-top: 0.5rem; }
+.mt-space-md { margin-top: 1rem; }
+
+/* -------------------------------------------------------------
+   Cores e Backgrounds Semânticos
+   ------------------------------------------------------------- */
+.bg-primary { background-color: var(--primary); }
+.text-primary { color: var(--primary); }
+.border-primary { border-color: var(--primary); }
+
+.bg-primary-container { background-color: var(--primary-container); }
+.text-primary-container { color: var(--primary-container); }
+
+.bg-primary-fixed { background-color: var(--primary-fixed); }
+.text-primary-fixed { color: var(--primary-fixed); }
+.text-on-primary-fixed-variant { color: var(--on-primary-fixed-variant); }
+
+.bg-on-primary { background-color: var(--on-primary); }
+.text-on-primary { color: var(--on-primary); }
+
+.bg-secondary { background-color: var(--secondary); }
+.text-secondary { color: var(--secondary); }
+
+.bg-secondary-container { background-color: var(--secondary-container); }
+.text-on-secondary-container { color: var(--on-secondary-container); }
+
+.bg-tertiary { background-color: var(--tertiary); }
+.text-tertiary { color: var(--tertiary); }
+
+.bg-tertiary-container { background-color: var(--tertiary-container); }
+.text-on-tertiary { color: var(--on-tertiary); }
+
+.bg-surface { background-color: var(--surface); }
+.bg-background { background-color: var(--background); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
+.bg-surface-container-low { background-color: var(--surface-container-low); }
+.bg-surface-container { background-color: var(--surface-container); }
+.bg-surface-container-high { background-color: var(--surface-container-high); }
+.bg-surface-container-highest { background-color: var(--surface-container-highest); }
+
+.bg-inverse-surface { background-color: var(--inverse-surface); }
+.text-inverse-on-surface { color: var(--inverse-on-surface); }
+.text-inverse-primary { color: var(--inverse-primary); }
+
+.text-outline-variant { color: var(--outline-variant); }
+.border-outline-variant { border-color: var(--outline-variant); }
+
+/* -------------------------------------------------------------
+   ANIMAÇÕES SUTIS (CSS Puro)
+   ------------------------------------------------------------- */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-float-subtle {
+  animation: float-subtle 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes ping-soft {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+}
+
+.animate-ping-soft {
+  animation: ping-soft 2.4s ease-in-out infinite;
+}
+
+@keyframes aura-breathe {
+  0%, 100% {
+    box-shadow: 0 4px 16px rgba(0, 173, 79, 0.28);
+  }
+  50% {
+    box-shadow: 0 8px 26px rgba(0, 173, 79, 0.45);
+  }
+}
+
+.animate-aura-breathe {
+  animation: aura-breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes gentle-nudge {
+  0%, 86%, 100% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(-4px);
+  }
+  94% {
+    transform: translateY(-1px);
+  }
+}
+
+.animate-gentle-nudge {
+  animation: gentle-nudge 7s ease-in-out infinite;
+}
+
+/* Revelação ao rolar (Scroll Reveal) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+
+/* Micro-elevação dos cards */
+.tech-card {
+  border: 1px solid rgba(190, 200, 210, 0.4);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease;
+  will-change: transform, box-shadow;
+}
+
+.tech-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 159, 227, 0.45);
+  box-shadow: 0 12px 28px -6px rgba(0, 100, 145, 0.12);
+}
+
+.btn-subtle {
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.16s ease,
+              background-color 0.18s ease;
+  will-change: transform;
+}
+
+.btn-subtle:hover {
+  transform: translateY(-1.5px);
+}
+
+.btn-subtle:active {
+  transform: scale(0.985) translateY(0);
+}
+
+.input-subtle {
+  transition: border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              background-color 0.2s ease;
+}
+
+.input-subtle:focus {
+  border-color: #009fe3 !important;
+  box-shadow: 0 0 0 3px rgba(0, 159, 227, 0.18) !important;
+}
+
+.zoom-subtle {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.group:hover .zoom-subtle {
+  transform: scale(1.04);
+}
+
+/* Accordion FAQ */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.28s ease-out;
+  opacity: 0;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 420px;
+  opacity: 1;
+}
+
+.faq-icon {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* Toast de Notificação */
+#toastNotification {
+  position: fixed;
+  bottom: 5.5rem;
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(16px);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100;
+}
+
+#toastNotification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Drawer Mobile */
+#mobileMenuDrawer {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#mobileMenuBackdrop {
+  transition: opacity 0.25s ease-in-out;
+}
+
+/* Cabeçalho com scroll */
+header.header-scrolled {
+  box-shadow: 0 4px 20px -2px rgba(18, 28, 42, 0.1);
+  border-bottom: 1px solid rgba(190, 200, 210, 0.3);
+}
+
+/* Acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .animate-float-subtle,
+  .animate-aura-breathe,
+  .animate-gentle-nudge,
+  .animate-ping-soft {
+    animation: none !important;
+  }
+}
